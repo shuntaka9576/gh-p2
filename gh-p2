@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+set -e
+
+repo="shuntaka9576/gh-p2"
+version="v0.0.1"
+
+extension_path="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+version_path="${extension_path}/dist/${version}"
+exe="gh-p2"
+platform=""
+extension=""
+
+determine_platform() {
+  local arch
+  arch="$(uname -m)"
+  if uname -a | grep Msys > /dev/null; then
+    extension=".exe"
+    if [ $arch = "x86_64" ]; then
+      platform="windows_amd64"
+    fi
+  elif uname -a | grep Darwin > /dev/null; then
+    if [ $arch = "x86_64" ]; then
+      platform="darwin_amd64"
+    elif [ $arch = "arm64" ]; then
+      platform="darwin_arm64"
+    fi
+  elif uname -a | grep Linux > /dev/null; then
+    if [ $arch = "x86_64" ]; then
+      platform="linux_amd64"
+    elif [ $arch = "arm64" ]; then
+      platform="linux_arm64"
+    fi
+  fi
+}
+
+download_latest_release() {
+  mkdir -p "${version_path}"
+  gh release -R "${repo}" download "${version}" --pattern "*${platform}*" --dir="${version_path}"
+  mv "${version_path}/${exe}_${version}_${platform}${extension}" "${version_path}/${exe}"
+  chmod +x "${version_path}/${exe}"
+}
+
+if [ ! -e "${version_path}/${exe}" ]; then
+  determine_platform
+  if [ "${platform}" == "" ]; then
+    if [ "$(which go)" == "" ]; then
+      echo "go must be installed to use this gh extension on this platform"
+      exit 1
+    fi
+    mkdir -p "${version_path}"
+    pushd "${extension_path}" > /dev/null
+    go build -o "${version_path}/${exe}"
+    popd > /dev/null
+  else
+    if [ ! -d "${version_path}" ]; then
+      download_latest_release
+    fi
+  fi
+fi
+
+exec "${version_path}/${exe}" "$@"

@@ -1,0 +1,96 @@
+# gh-p2
+
+GitHub CLI extension ProjectV2 utility ✨.
+
+## Installation
+
+### Add projectV2 socpes to GitHub CLI
+
+```bash
+gh auth login --scopes 'read:project,project'
+```
+
+### Install extensions
+
+```bash
+gh extension install shuntaka9576/gh-p2
+```
+
+## Usage
+
+### Global Flags
+
+If ProjectV2 belongs to User, use --user(-u). if it belongs to Organization, use --org(-o) to specify the name.
+
+### Create Issue
+
+#### Draft issue
+
+*Quick start*
+
+Create and add a draft issue to ProjectV2.
+
+```bash
+gh p2 create -u "ownerName" -p "projectTitle" -t "Title" -f "Status:Todo" -d
+```
+
+*Detail*
+
+|flag|short|required|default|
+|---|---|---|---|
+|--user or --org|-u or -o|true|""
+|--project-title|-p|true|""
+|--title|-t|true|""
+|--draft|-r|true|false
+|--assignees|-a|false|[]
+|--fields|-f|false|[]
+|--repo|-r|unavailable|""
+|--labels|-l|unavailable|[]
+
+```bash
+gh p2 create \
+  --user "shuntaka9576" \
+  --project-title "test-project" \
+  --title "Fix bug" \
+  --draft \
+  --assignees "shuntaka9576" \
+  --fileds "Status:Todo" \
+  --fields "point:3" \
+  --fields "deadline:2022-08-11"
+```
+#### Issue
+
+*Quick start*
+
+Create an issue in shuntaka9576/kanban-test repository and add it to ProjectV2.
+
+```bash
+gh p2 create -u "ownerName" -r "repositoryName" -p "projectTitle" -t "Title"
+```
+
+*Detail*
+
+|flag|short|required|default|
+|---|---|---|---|
+|--user or --org|-u or -o|true|""
+|--repo|-r|true|""
+|--project-title|-p|true|""
+|--title|-t|true|""
+|--draft|-r|false|false
+|--assignees|-a|false|[]
+|--labels|-l|false|[]
+|--fields|-f|false|[]
+
+```bash
+gh p2 create \
+  --user "shuntaka9576" \
+  --repo "kanban-test" \
+  --project-tilte "test-project" \
+  --title "Fix bug" \
+  --assignees "shuntaka9576" \
+  --labels "label1" \
+  --labels "label2" \
+  --fileds "Status:Todo" \
+  --fields "point:3" \
+  --fields "deadline:2022-08-11"
+```
