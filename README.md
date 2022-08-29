@@ -2,18 +2,24 @@
 
 GitHub CLI extension ProjectV2 utility ✨.
 
+![gif](https://github.com/shuntaka9576/gh-p2/blob/main/doc/gif/p2.gif?raw=true)
+
 ## Installation
 
-### Add projectV2 socpes to GitHub CLI
-
+Add projectV2 socpes to GitHub CLI.
 ```bash
-gh auth login --scopes 'read:project,project'
+gh auth login --scopes 'project'
 ```
 
-### Install extensions
-
+Install extension.
 ```bash
 gh extension install shuntaka9576/gh-p2
+```
+
+Upgrade:
+
+```bash
+gh extension upgrade shuntaka9576/gh-p2
 ```
 
 ## Usage
@@ -34,7 +40,7 @@ Create and add a draft issue to ProjectV2.
 gh p2 create -u "ownerName" -p "projectTitle" -t "Title" -f "Status:Todo" -d
 ```
 
-*Detail*
+*Details*
 
 |flag|short|required|default|
 |---|---|---|---|
@@ -50,7 +56,7 @@ gh p2 create -u "ownerName" -p "projectTitle" -t "Title" -f "Status:Todo" -d
 ```bash
 gh p2 create \
   --user "shuntaka9576" \
-  --project-title "test-project" \
+  --project-title "testProject" \
   --title "Fix bug" \
   --draft \
   --assignees "shuntaka9576" \
@@ -62,13 +68,13 @@ gh p2 create \
 
 *Quick start*
 
-Create an issue in shuntaka9576/kanban-test repository and add it to ProjectV2.
+Create an issue in `{ownerName}/{repositoryName}` repository and add it to ProjectV2.
 
 ```bash
 gh p2 create -u "ownerName" -r "repositoryName" -p "projectTitle" -t "Title"
 ```
 
-*Detail*
+*Details*
 
 |flag|short|required|default|
 |---|---|---|---|
@@ -84,8 +90,8 @@ gh p2 create -u "ownerName" -r "repositoryName" -p "projectTitle" -t "Title"
 ```bash
 gh p2 create \
   --user "shuntaka9576" \
-  --repo "kanban-test" \
-  --project-tilte "test-project" \
+  --repo "repositoryName" \
+  --project-tilte "testProject" \
   --title "Fix bug" \
   --assignees "shuntaka9576" \
   --labels "label1" \
@@ -94,3 +100,7 @@ gh p2 create \
   --fields "point:3" \
   --fields "deadline:2022-08-11"
 ```
+
+## Special Thanks
+
+* https://github.com/yusukebe/gh-markdown-preview
