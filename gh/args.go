@@ -10,11 +10,16 @@ import (
 
 var graphqlArgs = []string{"api", "graphql", "-f"}
 
-func CreateLabelApiArgs(owner string, repo string, labelName string) []string {
-	rand.Seed(time.Now().UnixNano())
-	rgb := []float64{rand.Float64() * 255, rand.Float64() * 255, rand.Float64() * 255}
-	colorCode := colorful.LinearRgb(rgb[0], rgb[1], rgb[2])
-	baseArgs := []string{
+func CreateLabelApiArgs(owner string, repo string, labelName string, colorCode string) (baseArgs []string) {
+
+	if colorCode == "" {
+		rand.Seed(time.Now().UnixNano())
+		rgb := []float64{rand.Float64() * 255, rand.Float64() * 255, rand.Float64() * 255}
+		randomColorCode := colorful.LinearRgb(rgb[0], rgb[1], rgb[2])
+		colorCode = randomColorCode.Hex()[1:]
+	}
+
+	baseArgs = []string{
 		"api",
 		"--method",
 		"POST",
@@ -22,7 +27,7 @@ func CreateLabelApiArgs(owner string, repo string, labelName string) []string {
 		"-f",
 		fmt.Sprintf(`name=%s`, labelName),
 		"-f",
-		fmt.Sprintf(`color=%s`, colorCode.Hex()[1:]),
+		fmt.Sprintf(`color=%s`, colorCode),
 	}
 
 	return baseArgs

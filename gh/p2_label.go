@@ -15,8 +15,8 @@ type Label struct {
 	Description string `json:"description"`
 }
 
-func CreateLabel(owner string, repo string, labelName string) (*Label, error) {
-	args := CreateLabelApiArgs(owner, repo, labelName)
+func CreateLabel(owner string, repo string, labelName string, colorCode string) (*Label, error) {
+	args := CreateLabelApiArgs(owner, repo, labelName, colorCode)
 
 	stdout, _, err := gh.Exec(args...)
 	if err != nil {

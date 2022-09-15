@@ -88,7 +88,8 @@ func (c *Client) CreateIssue(params *CreateIssueParams) (err error) {
 	} else {
 		var labelIds []string
 		for _, label := range params.Labels {
-			createdLabel, err := gh.CreateLabel(c.Name, params.Repo, label)
+			_, labelName, colorCode := parseLableFormat(label)
+			createdLabel, err := gh.CreateLabel(c.Name, params.Repo, labelName, colorCode)
 			if err != nil {
 				// TODO check status code
 				fmt.Fprintf(os.Stderr, "skip create label %s (already exits)\n", label)
@@ -161,4 +162,9 @@ func (c *Client) CreateIssue(params *CreateIssueParams) (err error) {
 	}
 
 	return nil
+}
+
+func parseLableFormat(setedLabel string) (isSetColorCode bool, labelName string, colorCode string) {
+
+	return
 }

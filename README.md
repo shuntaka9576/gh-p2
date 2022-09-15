@@ -101,6 +101,16 @@ gh p2 create \
   --fields "deadline:2022-08-11"
 ```
 
+To specify the label color, append `[color:#$COLOR_CODE]` after the label name as follows.
+```bash
+gh p2 create \
+  --user "shuntaka9576" \
+  --repo "repositoryName" \
+  --project-tilte "testProject" \
+  --title "Fix bug" \
+  --labels "label1[color:#000]"
+```
+
 ## Special Thanks
 
 * https://github.com/yusukebe/gh-markdown-preview
