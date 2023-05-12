@@ -11,6 +11,7 @@ import (
 type CreateIssueParams struct {
 	ProjectId string
 	Title     string
+	Body      string
 	Draft     bool
 	Repo      string
 	Fileds    []CreateFiled
@@ -113,7 +114,7 @@ func (c *Client) CreateIssue(params *CreateIssueParams) (err error) {
 		createIssueResult, err := gh.CreateIssue(&gh.CreateIssueParams{
 			RepositoryId: repository.Data.Repository.Id,
 			Title:        params.Title,
-			Body:         "",
+			Body:         params.Body,
 			AssigneeIds:  assiginIds,
 			LabelIds:     labelIds,
 		})
