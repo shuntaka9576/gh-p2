@@ -2,7 +2,7 @@
 set -e
 
 repo="shuntaka9576/gh-p2"
-version="v0.0.1"
+version="v0.1.0"
 
 extension_path="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 version_path="${extension_path}/dist/${version}"
