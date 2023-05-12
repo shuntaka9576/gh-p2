@@ -21,6 +21,7 @@ var CLI struct {
 	Create struct {
 		ProjectTitle string   `short:"p" required:"" name:"project-title" help:"Specify the title of ProjectV2."`
 		Title        string   `short:"t" required:"" name:"title" help:"Specify issue title."`
+		Body         string   `short:"b" name:"body" help:"Specify issue body."`
 		Repo         string   `short:"r" name:"repo" help:"Specify the repository name. Owner name is not required. This flag is not available when creating draft issues."`
 		Fields       []string `short:"f" name:"fields" help:"Specify ProjectV2 custom fields in the format {keyName}:{valueName}. e.g. Status:Todo, Point:3, date:2022-08-29. See https://docs.github.com/ja/graphql/reference/input-objects#projectv2fieldvalue for data types. Iteration is not currently supported."`
 		Labels       []string `short:"l" name:"labels" help:"Specify the label name to be set for the issue. If a label with the target name does not exist, a new one will be created with a random color. This flag is not available when creating draft issues."`
@@ -83,6 +84,7 @@ func main() {
 			ProjectId: projectId,
 			Title:     CLI.Create.Title,
 			Repo:      CLI.Create.Repo,
+			Body:      CLI.Create.Body,
 			Fields:    CLI.Create.Fields,
 			Labels:    CLI.Create.Labels,
 			Draft:     CLI.Create.Draft,

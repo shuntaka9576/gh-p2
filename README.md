@@ -50,6 +50,7 @@ gh p2 create -u "ownerName" -p "projectTitle" -t "Title" -f "Status:Todo" -d
 |--draft|-r|true|false
 |--assignees|-a|false|[]
 |--fields|-f|false|[]
+|--body|-b|false|""
 |--repo|-r|unavailable|""
 |--labels|-l|unavailable|[]
 
@@ -86,6 +87,7 @@ gh p2 create -u "ownerName" -r "repositoryName" -p "projectTitle" -t "Title"
 |--assignees|-a|false|[]
 |--labels|-l|false|[]
 |--fields|-f|false|[]
+|--body|-b|false|""
 
 ```bash
 gh p2 create \

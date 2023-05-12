@@ -14,6 +14,7 @@ type CreateParamas struct {
 	ProjectId        string
 	SetProjectStatus string
 	Title            string
+	Body             string
 	Repo             string
 	Fields           []string
 	Labels           []string
@@ -73,6 +74,7 @@ func (c *Cmd) Create(params *CreateParamas) error {
 	err = c.Client.CreateIssue(&ghp2.CreateIssueParams{
 		ProjectId: params.ProjectId,
 		Title:     params.Title,
+		Body:      params.Body,
 		Draft:     params.Draft,
 		Fileds:    updateFileds,
 		Repo:      params.Repo,
