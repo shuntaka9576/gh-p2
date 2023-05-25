@@ -98,7 +98,7 @@ gh p2 create \
   --assignees "shuntaka9576" \
   --labels "label1" \
   --labels "label2" \
-  --fileds "Status:Todo" \
+  --fields "Status:Todo" \
   --fields "point:3" \
   --fields "deadline:2022-08-11"
 ```
