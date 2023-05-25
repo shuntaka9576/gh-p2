@@ -61,9 +61,9 @@ gh p2 create \
   --title "Fix bug" \
   --draft \
   --assignees "shuntaka9576" \
-  --fileds "Status:Todo" \
+  --fields "Status:Todo" \
   --fields "point:3" \
-  --fields "deadline:2022-08-11"
+  --fields "deadline:2022-08-11" \
 ```
 #### Issue
 
