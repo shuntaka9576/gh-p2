@@ -2,6 +2,7 @@ package gh
 
 import (
 	"fmt"
+	"strings"
 )
 
 func GetUserQuery(users []string) string {
@@ -159,6 +160,7 @@ func GetRepoQuery(owner string, repo string) string {
 func IssueMutation(repositoryId string, title string, body string, assigneeIds []string, labelIds []string) string {
 	assigneeIdsString := convertArrayString(assigneeIds)
 	labelIdsString := convertArrayString(labelIds)
+	body = strings.ReplaceAll(body, `"`, `\"`)
 
 	query := fmt.Sprintf(`mutation {
 		createIssue(input: {repositoryId: "%s" title: "%s" body: "%s" assigneeIds: %s, labelIds: %s}) {
