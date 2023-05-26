@@ -88,6 +88,4 @@ echo Hello World
 			}
 		})
 	}
-
-	// IssueMutation("test", "issueTitle")
 }
