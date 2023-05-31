@@ -10,10 +10,10 @@ type GetProjectFieldsParams struct {
 	ProjectId string
 }
 
-type GetProjectFiledsGhRes struct {
+type GetProjectFieldsGhRes struct {
 	Data struct {
 		Node struct {
-			Fileds struct {
+			Fields struct {
 				Nodes []struct {
 					Id       string `json:"id"`
 					Name     string `json:"name"`
@@ -28,8 +28,8 @@ type GetProjectFiledsGhRes struct {
 	} `json:"data"`
 }
 
-type GetProjectFiledsRes struct {
-	Fileds []Filed
+type GetProjectFieldsRes struct {
+	Fields []Filed
 }
 
 type Filed struct {
@@ -42,23 +42,23 @@ type Filed struct {
 	}
 }
 
-func (c *Client) GetProjectFields(params *GetProjectFieldsParams) (*GetProjectFiledsRes, error) {
-	payload, err := gh.GetProjectFields(&gh.GetProjectFiledsParams{
+func (c *Client) GetProjectFields(params *GetProjectFieldsParams) (*GetProjectFieldsRes, error) {
+	payload, err := gh.GetProjectFields(&gh.GetProjectFieldsParams{
 		ProjectId: params.ProjectId,
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	parsed := &GetProjectFiledsGhRes{}
+	parsed := &GetProjectFieldsGhRes{}
 	err = json.Unmarshal(*payload, parsed)
 	if err != nil {
 		return nil, err
 	}
 
-	res := &GetProjectFiledsRes{}
+	res := &GetProjectFieldsRes{}
 
-	for _, node := range parsed.Data.Node.Fileds.Nodes {
+	for _, node := range parsed.Data.Node.Fields.Nodes {
 		filed := Filed{
 			Id:       node.Id,
 			DataType: node.DataType,
@@ -72,7 +72,7 @@ func (c *Client) GetProjectFields(params *GetProjectFieldsParams) (*GetProjectFi
 			}(node.Options)
 		}
 
-		res.Fileds = append(res.Fileds, filed)
+		res.Fields = append(res.Fields, filed)
 	}
 
 	return res, nil

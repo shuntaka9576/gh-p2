@@ -14,7 +14,7 @@ type CreateIssueParams struct {
 	Body      string
 	Draft     bool
 	Repo      string
-	Fileds    []CreateFiled
+	Fields    []CreateFiled
 	Assignees []string
 	Labels    []string
 }
@@ -147,14 +147,14 @@ func (c *Client) CreateIssue(params *CreateIssueParams) (err error) {
 		itemId = addItemRes.Data.AddProjectV2ItemById.Item.Id
 	}
 
-	// project item apply fileds
-	for _, filed := range params.Fileds {
+	// project item apply fields
+	for _, field := range params.Fields {
 		_, err := gh.UpdateItem(&gh.UpdateItemParams{
 			ProjectId: params.ProjectId,
 			ItemId:    itemId,
-			FieldId:   filed.Id,
-			ValueType: filed.DataType,
-			Value:     filed.Value,
+			FieldId:   field.Id,
+			ValueType: field.DataType,
+			Value:     field.Value,
 		})
 		if err != nil {
 			return err

@@ -8,7 +8,7 @@ type ListProjectParams struct {
 }
 
 func ListProject(params *ListProjectParams) (*[]byte, error) {
-	ghql := "query=" + GenListQuery(params.ClientType, params.Name)
+	ghql := "query=" + GetListQuery(params.ClientType, params.Name)
 	args := append(graphqlArgs, ghql)
 	stdOut, _, err := gh.Exec(args...)
 

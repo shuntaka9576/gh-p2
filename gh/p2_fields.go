@@ -4,11 +4,11 @@ import (
 	"github.com/cli/go-gh"
 )
 
-type GetProjectFiledsParams struct {
+type GetProjectFieldsParams struct {
 	ProjectId string
 }
 
-func GetProjectFields(params *GetProjectFiledsParams) (*[]byte, error) {
+func GetProjectFields(params *GetProjectFieldsParams) (*[]byte, error) {
 	ghql := "query=" + GetProjectFieldsQuery(params.ProjectId)
 	args := append(graphqlArgs, ghql)
 
