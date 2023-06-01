@@ -22,7 +22,7 @@ func GetUserQuery(users []string) string {
 	return query
 }
 
-func GenListQuery(clientType ClientType, name string) string {
+func GetListQuery(clientType ClientType, name string) string {
 	query := fmt.Sprintf(`query{
   %s(login: "%s") {
     projectsV2(first: 20) {

@@ -33,25 +33,25 @@ func (c *Cmd) Create(params *CreateParamas) error {
 	}
 
 	// get project status item
-	projectFileds, err := c.Client.GetProjectFields(&ghp2.GetProjectFieldsParams{
+	projectFields, err := c.Client.GetProjectFields(&ghp2.GetProjectFieldsParams{
 		ProjectId: params.ProjectId,
 	})
 	if err != nil {
 		return fmt.Errorf("exec create error: %s", err)
 	}
 
-	updateFileds := []ghp2.CreateFiled{}
+	updateFields := []ghp2.CreateFiled{}
 	for _, updateFiled := range params.Fields {
 		updateFiledName := strings.Split(updateFiled, ":")[0]
 		updateFiledValue := strings.Split(updateFiled, ":")[1]
 
-		for _, filed := range projectFileds.Fileds {
+		for _, filed := range projectFields.Fields {
 			if updateFiledName == filed.Name {
 				// TODO ghp2.ITERATION
 				if filed.DataType == gh.SINGLE_SELECT {
 					for _, option := range filed.Options {
 						if updateFiledValue == option.Name {
-							updateFileds = append(updateFileds, ghp2.CreateFiled{
+							updateFields = append(updateFields, ghp2.CreateFiled{
 								Id:       filed.Id,
 								Name:     filed.Name,
 								DataType: filed.DataType,
@@ -60,7 +60,7 @@ func (c *Cmd) Create(params *CreateParamas) error {
 						}
 					}
 				} else {
-					updateFileds = append(updateFileds, ghp2.CreateFiled{
+					updateFields = append(updateFields, ghp2.CreateFiled{
 						Id:       filed.Id,
 						Name:     filed.Name,
 						DataType: filed.DataType,
@@ -76,7 +76,7 @@ func (c *Cmd) Create(params *CreateParamas) error {
 		Title:     params.Title,
 		Body:      params.Body,
 		Draft:     params.Draft,
-		Fileds:    updateFileds,
+		Fields:    updateFields,
 		Repo:      params.Repo,
 		Assignees: params.Assignees,
 		Labels:    params.Labels,
