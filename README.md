@@ -103,6 +103,35 @@ gh p2 create \
   --fields "deadline:2022-08-11"
 ```
 
+### Show Project
+
+#### List Issues with Custom Fields
+
+Retrieve a list of issues linked to `Single Select Custom Fields` in GitHub Projects.
+
+*Quick start*
+
+```bash
+gh p2 show -u "ownerName" -r "repositoryName" -p "projectTitle" -f "Status:TODO"
+```
+
+*Details*
+
+|flag|short|required|default|description|
+|---|---|---|---|---|
+|--user or --org|-u or -o|true|""|
+|--repo|-r|true|""|
+|--project-title|-p|true|""|
+|--filter|-f|true|""|Specify `<customFieldName>:<customFieldValue>`
+
+```bash
+gh p2 show \
+  --user "shuntaka9576" \
+  --project-title "testProject" \
+  --repo "repositoryName" \
+  --filter "Status:TODO"
+```
+
 ## Special Thanks
 
 * https://github.com/yusukebe/gh-markdown-preview
