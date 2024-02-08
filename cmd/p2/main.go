@@ -28,6 +28,13 @@ var CLI struct {
 		Draft        bool     `short:"d" name:"draft" help:"Due to GitHub specifications, the --label and --repo options cannot be used together."`
 		Assignees    []string `short:"a" name:"assignees" help:"Specify the GitHub account ID to be assigned."`
 	} `cmd:"" help:"Option to create an issue or draft issue directly in Project V2."`
+	Show struct {
+		ProjectTitle string `short:"p" required:"" name:"project-title" help:"Specify the title of ProjectV2."`
+		Title        string `short:"t" required:"" name:"title" help:"Specify issue title."`
+		Body         string `short:"b" name:"body" help:"Specify issue body."`
+		Repo         string `short:"r" name:"repo" help:"Specify the repository name. Owner name is not required. This flag is not available when creating draft issues."`
+		Filter       string `short:"f" name:"filter" help:"Specify '<customFieldName>:<customFieldValue>'`
+	} `cmd:"" help:"Option to create an issue or draft issue directly in Project V2."`
 }
 
 func main() {

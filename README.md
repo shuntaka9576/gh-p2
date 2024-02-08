@@ -117,12 +117,12 @@ gh p2 show -u "ownerName" -r "repositoryName" -p "projectTitle" -f "Status:TODO"
 
 *Details*
 
-|flag|short|required|default|description|
-|---|---|---|---|---|
+|flag|short|required|default|
+|---|---|---|---|
 |--user or --org|-u or -o|true|""|
 |--repo|-r|true|""|
 |--project-title|-p|true|""|
-|--filter|-f|true|""|Specify `<customFieldName>:<customFieldValue>`
+|--filter|-f|true|""|
 
 ```bash
 gh p2 show \
