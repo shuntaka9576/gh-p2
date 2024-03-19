@@ -38,6 +38,62 @@ func GetListQuery(clientType ClientType, name string) string {
 	return query
 }
 
+func GetProjectItemsQuery(projectId string, cursor *string) string {
+	var afterClause string
+	if cursor != nil {
+		afterClause = fmt.Sprintf(`, after: "%s"`, *cursor)
+	}
+
+	query := fmt.Sprintf(`query{
+  node(id: "%s") {
+    ... on ProjectV2 {
+      title
+      items(first: 20%s) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          id
+          createdAt
+          updatedAt
+          isArchived
+          content {
+            __typename
+          }
+          fieldValues(first: 20) {
+            nodes {
+              __typename
+              ... on ProjectV2ItemFieldSingleSelectValue {
+                name
+                optionId
+                field {
+                  ... on ProjectV2SingleSelectField {
+                    id
+                    name
+                  }
+                }
+              }
+            }
+          }
+          content {
+            ... on Issue {
+              number
+              title
+              state
+              url
+              body
+            }
+          }
+        }
+      }
+    }
+  }
+}`, projectId, afterClause)
+
+	return query
+}
+
 func GetProjectFieldsQuery(projectId string) string {
 	query := fmt.Sprintf(`query{
   node(id: "%s") {

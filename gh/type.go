@@ -24,3 +24,10 @@ const (
 	TITLE                PROJECT_V2_DATA_TYPE = "TITLE"
 	TRACKS               PROJECT_V2_DATA_TYPE = "TRACKS"
 )
+
+type ITEM_TYPE = string
+
+const (
+	ISSUE       ITEM_TYPE = "ISSUE"
+	DRAFT_ISSUE ITEM_TYPE = "DRAFT_ISSUE"
+)
