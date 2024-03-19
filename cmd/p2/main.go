@@ -28,6 +28,10 @@ var CLI struct {
 		Draft        bool     `short:"d" name:"draft" help:"Due to GitHub specifications, the --label and --repo options cannot be used together."`
 		Assignees    []string `short:"a" name:"assignees" help:"Specify the GitHub account ID to be assigned."`
 	} `cmd:"" help:"Option to create an issue or draft issue directly in Project V2."`
+	Ls struct {
+		ProjectTitle string `short:"p" required:"" name:"project-title" help:"Specify the title of ProjectV2."`
+		Field        string `short:"f" name:"Specify ProjectV2 custom fields in the format {keyName}:{valueName}. e.g. Status:Todo, Point:3, date:2022-08-29."`
+	} `cmd:"" help:"Option to view an issue or draft issue in Project V2. Support only SingleSelectValue."`
 }
 
 func main() {
@@ -58,28 +62,29 @@ func main() {
 	}
 
 	var projectId string
-	for _, project := range res.Projects() {
-		if project.Title == CLI.Create.ProjectTitle {
-			projectId = project.Id
-		}
-	}
-
-	if projectId == "" {
-		fmt.Fprintf(os.Stderr, "Not found project name: %s\n", CLI.Create.ProjectTitle)
-		if len(res.Projects()) > 0 {
-			fmt.Fprintf(os.Stderr, "The following project names are available and can be specified in the project-title(-p) flag.\n")
-			for _, project := range res.Projects() {
-				fmt.Fprintf(os.Stderr, "  * %s\n", project.Title)
-			}
-		} else {
-			fmt.Fprintf(os.Stderr, "There are no ProjectV2 resources available for this organization or user.\n")
-		}
-
-		os.Exit(1)
-	}
 
 	switch kontext.Command() {
 	case "create":
+		for _, project := range res.Projects() {
+			if project.Title == CLI.Create.ProjectTitle {
+				projectId = project.Id
+			}
+		}
+
+		if projectId == "" {
+			fmt.Fprintf(os.Stderr, "Not found project name: %s\n", CLI.Create.ProjectTitle)
+			if len(res.Projects()) > 0 {
+				fmt.Fprintf(os.Stderr, "The following project names are available and can be specified in the project-title(-p) flag.\n")
+				for _, project := range res.Projects() {
+					fmt.Fprintf(os.Stderr, "  * %s\n", project.Title)
+				}
+			} else {
+				fmt.Fprintf(os.Stderr, "There are no ProjectV2 resources available for this organization or user.\n")
+			}
+
+			os.Exit(1)
+		}
+
 		err = c.Create(&cli.CreateParamas{
 			ProjectId: projectId,
 			Title:     CLI.Create.Title,
@@ -90,8 +95,32 @@ func main() {
 			Draft:     CLI.Create.Draft,
 			Assignees: CLI.Create.Assignees,
 		})
-	}
+	case "ls":
+		for _, project := range res.Projects() {
+			if project.Title == CLI.Ls.ProjectTitle {
+				projectId = project.Id
+			}
+		}
 
+		if projectId == "" {
+			fmt.Fprintf(os.Stderr, "Not found project name: %s\n", CLI.Create.ProjectTitle)
+			if len(res.Projects()) > 0 {
+				fmt.Fprintf(os.Stderr, "The following project names are available and can be specified in the project-title(-p) flag.\n")
+				for _, project := range res.Projects() {
+					fmt.Fprintf(os.Stderr, "  * %s\n", project.Title)
+				}
+			} else {
+				fmt.Fprintf(os.Stderr, "There are no ProjectV2 resources available for this organization or user.\n")
+			}
+
+			os.Exit(1)
+		}
+
+		err = c.Ls(&cli.LsParamas{
+			ProjectId: projectId,
+			Field:     CLI.Ls.Field,
+		})
+	}
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%s", err)
 

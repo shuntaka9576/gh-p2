@@ -103,6 +103,43 @@ gh p2 create \
   --fields "deadline:2022-08-11"
 ```
 
+### Ls Issue
+
+*Quick start*
+
+List an issue in project.
+
+```bash
+# To specify an organization, use -o instead of -u.
+gh p2 ls -u "ownerName" -p "project"  |\
+  jq -r '["type", "number", "title", "status", "url"], (.items[] |[.type, .number, .title, .singleFiledValues.Status, .url]) | @csv'
+```
+
+Stdout
+```csv
+"type","number","title","status","url"
+"ISSUE",48,"title2","In Progress","https://github.com/shuntaka9576/kanban-test/issues/48"
+"DRAFT_ISSUE",0,"","In Progress",""
+"ISSUE",49,"Fix bug",,"https://github.com/shuntaka9576/kanban-test/issues/49"
+"DRAFT_ISSUE",0,"",,""
+"DRAFT_ISSUE",0,"",,""
+"ISSUE",50,"aaa[]",,"https://github.com/shuntaka9576/kanban-test/issues/50"
+"ISSUE",51,"aaa",,"https://github.com/shuntaka9576/kanban-test/issues/51"
+"ISSUE",52,"aaa",,"https://github.com/shuntaka9576/kanban-test/issues/52"
+"ISSUE",58,"test",,"https://github.com/shuntaka9576/kanban-test/issues/58"
+"ISSUE",89,"Fix bug","Todo","https://github.com/shuntaka9576/kanban-test/issues/89"
+"ISSUE",90,"Fix bug","Todo","https://github.com/shuntaka9576/kanban-test/issues/90"
+"DRAFT_ISSUE",0,"",,""
+```
+
+*Details*
+
+|flag|short|required|default|
+|---|---|---|---|
+|--user or --org|-u or -o|true|""
+|--project-title|-p|true|""
+
+
 ## Special Thanks
 
 * https://github.com/yusukebe/gh-markdown-preview
