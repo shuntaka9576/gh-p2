@@ -54,7 +54,7 @@ type GetProjectItemsRes struct {
 
 type IssueItem struct {
 	Title              string            `json:"title"`
-	SingleSelectValues map[string]string `json:"singleFiledValues"`
+	SingleSelectValues map[string]string `json:"singleSelectValues"`
 	ItemType           gh.ITEM_TYPE      `json:"type"`
 	Body               string            `json:"body"`
 	URL                string            `json:"url"`
