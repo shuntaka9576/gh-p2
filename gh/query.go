@@ -77,6 +77,10 @@ func GetProjectItemsQuery(projectId string, cursor *string) string {
             }
           }
           content {
+            ... on DraftIssue {
+              title
+              body
+            }
             ... on Issue {
               number
               title
