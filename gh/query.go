@@ -87,6 +87,11 @@ func GetProjectItemsQuery(projectId string, cursor *string) string {
               state
               url
               body
+              labels(first: 20) {
+                nodes {
+                  name
+                }
+              }
             }
           }
         }
