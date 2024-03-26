@@ -44,6 +44,7 @@ type GetProjectItemsGhRes struct {
 							Filed    struct {
 								Name string `json:"name,omitempty"`
 							} `json:"field"`
+							Number float64 `json:"number,omitempty"`
 						} `json:"nodes"`
 					} `json:"fieldValues"`
 				} `json:"nodes"`
@@ -58,13 +59,14 @@ type GetProjectItemsRes struct {
 }
 
 type IssueItem struct {
-	Title              string            `json:"title"`
-	SingleSelectValues map[string]string `json:"singleSelectValues"`
-	ItemType           gh.ITEM_TYPE      `json:"type"`
-	Body               string            `json:"body"`
-	URL                string            `json:"url"`
-	Number             int               `json:"number"`
-	Labels             []string          `json:"labels"`
+	Title              string             `json:"title"`
+	SingleSelectValues map[string]string  `json:"singleSelectValues"`
+	NumberValues       map[string]float64 `json:"numberValues"`
+	ItemType           gh.ITEM_TYPE       `json:"type"`
+	Body               string             `json:"body"`
+	URL                string             `json:"url"`
+	Number             int                `json:"number"`
+	Labels             []string           `json:"labels"`
 }
 
 func (c *Client) GetProjectItems(params *GetProjectItemsParams) (*GetProjectItemsRes, error) {
@@ -112,12 +114,16 @@ func (c *Client) GetProjectItems(params *GetProjectItemsParams) (*GetProjectItem
 			}
 
 			singleSelectValues := map[string]string{}
+			numberValues := map[string]float64{}
 			for _, fieldValue := range node.FieldValues.Nodes {
 				if fieldValue.TypeName == "ProjectV2ItemFieldSingleSelectValue" {
 					singleSelectValues[fieldValue.Filed.Name] = fieldValue.Name
+				} else if fieldValue.TypeName == "ProjectV2ItemFieldNumberValue" {
+					numberValues[fieldValue.Filed.Name] = fieldValue.Number
 				}
 			}
 			item.SingleSelectValues = singleSelectValues
+			item.NumberValues = numberValues
 
 			labels := []string{}
 			for _, node := range node.Content.Labels.Nodes {
