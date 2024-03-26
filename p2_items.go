@@ -31,6 +31,11 @@ type GetProjectItemsGhRes struct {
 						State    string `json:"state,omitempty"`
 						URL      string `json:"url,omitempty"`
 						Body     string `json:"body,omitempty"`
+						Labels   struct {
+							Nodes []struct {
+								Name string `json:"name"`
+							} `json:"nodes"`
+						} `json:"labels"`
 					} `json:"content"`
 					FieldValues struct {
 						Nodes []struct {
@@ -59,6 +64,7 @@ type IssueItem struct {
 	Body               string            `json:"body"`
 	URL                string            `json:"url"`
 	Number             int               `json:"number"`
+	Labels             []string          `json:"labels"`
 }
 
 func (c *Client) GetProjectItems(params *GetProjectItemsParams) (*GetProjectItemsRes, error) {
@@ -112,6 +118,12 @@ func (c *Client) GetProjectItems(params *GetProjectItemsParams) (*GetProjectItem
 				}
 			}
 			item.SingleSelectValues = singleSelectValues
+
+			labels := []string{}
+			for _, node := range node.Content.Labels.Nodes {
+				labels = append(labels, node.Name)
+			}
+			item.Labels = labels
 
 			res.IssueItems = append(res.IssueItems, item)
 		}
