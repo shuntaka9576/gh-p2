@@ -112,7 +112,7 @@ List an issue in project.
 ```bash
 # To specify an organization, use -o instead of -u.
 gh p2 ls -u "ownerName" -p "project"  |\
-  jq -r '["type", "number", "title", "status", "url", "labels"], (.items[] |[.type, .number, .title, .singleSelectValues.Status, .url, .labels[]]) | @csv'
+  jq -r '["type", "number", "title", "status", "url", "point", "labels"], (.items[] |[.type, .number, .title, .singleSelectValues.Status, .url, .numberValues.Point, (.labels | join(", "))]) | @csv'
 ```
 
 Stdout

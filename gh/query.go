@@ -74,6 +74,15 @@ func GetProjectItemsQuery(projectId string, cursor *string) string {
                   }
                 }
               }
+              ... on ProjectV2ItemFieldNumberValue {
+                id
+                field {
+                  ... on ProjectV2Field {
+                    name
+                  }
+                }
+                number
+              }
             }
           }
           content {
