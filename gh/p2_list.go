@@ -1,7 +1,5 @@
 package gh
 
-import "github.com/cli/go-gh/v2"
-
 type ListProjectParams struct {
 	ClientType ClientType
 	Name       string
@@ -10,13 +8,10 @@ type ListProjectParams struct {
 func ListProject(params *ListProjectParams) (*[]byte, error) {
 	ghql := "query=" + GetListQuery(params.ClientType, params.Name)
 	args := append(graphqlArgs, ghql)
-	stdOut, _, err := gh.Exec(args...)
-
+	bytes, err := execGh(args...)
 	if err != nil {
 		return nil, err
 	}
-
-	bytes := stdOut.Bytes()
 
 	return &bytes, nil
 }

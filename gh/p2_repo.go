@@ -1,9 +1,5 @@
 package gh
 
-import (
-	"github.com/cli/go-gh/v2"
-)
-
 type GetRepoParams struct {
 	Owner string
 	Repo  string
@@ -12,13 +8,10 @@ type GetRepoParams struct {
 func GetRepo(params *GetRepoParams) (*[]byte, error) {
 	ghql := "query=" + GetRepoQuery(params.Owner, params.Repo)
 	args := append(graphqlArgs, ghql)
-	stdOut, _, err := gh.Exec(args...)
-
+	bytes, err := execGh(args...)
 	if err != nil {
 		return nil, err
 	}
 
-	byte := stdOut.Bytes()
-
-	return &byte, nil
+	return &bytes, nil
 }
