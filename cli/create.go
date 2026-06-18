@@ -30,6 +30,10 @@ func (c *Cmd) Create(params *CreateParamas) error {
 
 			return errors.New("exec create error: error specifying flags when creating draft")
 		}
+	} else if params.Repo == "" {
+		fmt.Fprintf(os.Stderr, "Specify either --repo or --draft. Use --repo <name> to create an issue in a repository, or --draft to create a draft item directly in the project.\n")
+
+		return errors.New("exec create error: --repo or --draft is required")
 	}
 
 	// get project status item
