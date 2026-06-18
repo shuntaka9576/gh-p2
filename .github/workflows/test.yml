@@ -1,32 +1,18 @@
-name: "test"
+name: test
 on:
   push:
     branches:
-    - "**"
-
+      - "**"
 jobs:
-  go-versions:
+  test:
     runs-on: ubuntu-latest
-    outputs:
-      versions: ${{ steps.versions.outputs.versions }}
     steps:
-      - id: versions
-        run: |
-          versions=$(curl -s 'https://go.dev/dl/?mode=json' | jq -c 'map(.version[2:])')
-          echo "versions=$versions" >> $GITHUB_OUTPUT
-  ci:
-    name: "Run CI"
-    needs: go-versions
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        go-version: ${{fromJson(needs.go-versions.outputs.versions)}}
-    steps:
-    - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-      with:
-        fetch-depth: 1
-    - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
-      with:
-        go-version: ${{ matrix.go-version }}
-    - run: "go test -v ./..."
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
+        with:
+          go-version-file: go.mod
+      - run: go vet ./...
+      - run: go build ./...
+      - run: go test ./...
