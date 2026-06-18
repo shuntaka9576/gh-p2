@@ -1,7 +1,7 @@
 package gh
 
 import (
-	"github.com/cli/go-gh"
+	"github.com/cli/go-gh/v2"
 )
 
 type GetProjectFieldsParams struct {

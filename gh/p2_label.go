@@ -3,7 +3,7 @@ package gh
 import (
 	"encoding/json"
 
-	"github.com/cli/go-gh"
+	"github.com/cli/go-gh/v2"
 )
 
 type Label struct {

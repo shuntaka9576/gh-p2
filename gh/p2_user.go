@@ -1,7 +1,7 @@
 package gh
 
 import (
-	"github.com/cli/go-gh"
+	"github.com/cli/go-gh/v2"
 )
 
 func GetUser(users []string) (*[]byte, error) {
