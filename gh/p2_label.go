@@ -1,10 +1,6 @@
 package gh
 
-import (
-	"encoding/json"
-
-	"github.com/cli/go-gh/v2"
-)
+import "encoding/json"
 
 type Label struct {
 	Id          int64  `json:"id"`
@@ -18,15 +14,13 @@ type Label struct {
 func CreateLabel(owner string, repo string, labelName string) (*Label, error) {
 	args := CreateLabelApiArgs(owner, repo, labelName)
 
-	stdout, _, err := gh.Exec(args...)
+	stdout, err := execGh(args...)
 	if err != nil {
 		return nil, err
 	}
 
 	label := &Label{}
-	err = json.Unmarshal(stdout.Bytes(), label)
-
-	if err != nil {
+	if err := json.Unmarshal(stdout, label); err != nil {
 		return nil, err
 	}
 
@@ -36,15 +30,13 @@ func CreateLabel(owner string, repo string, labelName string) (*Label, error) {
 func GetLabel(owner string, repo string, labelName string) (*Label, error) {
 	args := GetLabelApiArgs(owner, repo, labelName)
 
-	stdout, _, err := gh.Exec(args...)
+	stdout, err := execGh(args...)
 	if err != nil {
 		return nil, err
 	}
 
 	label := &Label{}
-	err = json.Unmarshal(stdout.Bytes(), label)
-
-	if err != nil {
+	if err := json.Unmarshal(stdout, label); err != nil {
 		return nil, err
 	}
 
