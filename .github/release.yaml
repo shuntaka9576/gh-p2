@@ -2,5 +2,3 @@ changelog:
   exclude:
     labels:
       - tagpr
-      - dependencies
-      - skip-changelog
