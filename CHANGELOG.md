@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.4.3](https://github.com/shuntaka9576/gh-p2/compare/v0.4.2...v0.4.3) - 2026-07-21
+
+- ci: follow go.mod instead of running matrix over all Go versions by @shuntaka9576 in https://github.com/shuntaka9576/gh-p2/pull/18
+- chore(deps): update github-actions to v7 by @renovate[bot] in https://github.com/shuntaka9576/gh-p2/pull/20
+- chore(deps): update github-actions to v2.2.0 by @renovate[bot] in https://github.com/shuntaka9576/gh-p2/pull/21
+- chore(deps): update github-actions by @renovate[bot] in https://github.com/shuntaka9576/gh-p2/pull/22
+- chore(deps): update actions/setup-go action to v7 by @renovate[bot] in https://github.com/shuntaka9576/gh-p2/pull/25
+- chore(deps): update github-actions by @renovate[bot] in https://github.com/shuntaka9576/gh-p2/pull/24
+- fix(deps): update go-modules by @renovate[bot] in https://github.com/shuntaka9576/gh-p2/pull/23
+
 ## [v0.4.2](https://github.com/shuntaka9576/gh-p2/compare/v0.4.1...v0.4.2) - 2026-06-18
 
 - chore: introduce Renovate config by @shuntaka9576 in https://github.com/shuntaka9576/gh-p2/pull/12
