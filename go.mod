@@ -1,12 +1,12 @@
 module github.com/shuntaka9576/gh-p2
 
-go 1.26.5
+go 1.27.1
 
 require (
-	github.com/alecthomas/kong v1.16.0
-	github.com/cli/go-gh/v2 v2.13.0
+	github.com/alecthomas/kong v1.16.1
+	github.com/cli/go-gh/v2 v2.16.0
 	github.com/google/go-cmp v0.7.0
-	github.com/lucasb-eyer/go-colorful v1.4.0
+	github.com/lucasb-eyer/go-colorful v1.4.1
 	github.com/pkg/errors v0.9.1
 )
 
